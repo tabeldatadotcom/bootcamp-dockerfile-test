@@ -11,7 +11,7 @@ Test tahap pertama untuk peserta bootcamp tentang
 
 Teman-temen akan disedian sebuah virtual-machine (VM) untuk melakukan installasi docker
 
-1. Install docker
+1. Install docker-engine
 2. Configure insecure registry ke nexus oss yang telah di install, berikut configurasinya
 
   ```yaml
