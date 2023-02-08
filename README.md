@@ -1,50 +1,34 @@
-# Pre-Test Bootcamp fullstack developer
+# Bootcamp DevOps - dockerfile
 
-## Task 1 (Virtualization)
+Test tahap pertama untuk peserta bootcamp tentang 
 
-- Buatlah sebuah VM dengan kententuan
-  - username: `<github_user>` contoh `dimasm93`
-  - hostname: `<email_without_at>` contoh `dimas.tabeldata.com`
-  - OS: `ubuntu-20.04` atau `centos-7`
-- Install webserver `nginx`
-  - Configurasi reverse-proxy ke alamat `https://jsonplaceholder.typicode.com/todos/1` dengan url `/todo`
-	- Lakukan curl ke alamat tersebut contoh `<ip-vm-host>:<ip-vm-port-nginx>/todo` (kirimkan hasil screenshotnya simpan dalam folder `screenshot` dengan nama `task1.png`)
+- konsep docker
+- menjalankan container dengan docker
+- build docker image berdasarkan workload tertentu
+- memahami docker compose yaml
 
-## Task 2 (Container)
+## Task 1 (install docker)
 
-Jika saya memiliki architecture seperti berikut:
+Teman-temen akan disedian sebuah virtual-machine (VM) untuk melakukan installasi docker
 
-![container-apps](docs/images/01-container.png)
+1. Install docker
+2. Configure insecure registry ke nexus oss yang telah di install, berikut configurasinya
 
-Dimana berikut adalah configurasi docker image:
+  ```yaml
+  server: 
+    pull-access: 192.168.100.250:8086
+    push-access: 192.168.100.250:8087
+  cred:
+    user: tabeldata
+    pass: tabeldata
+  ```
 
-1. Backend container
-  - image: `dimmaryanto93/udemy-springboot-app:latest`
-  - port: `8080`
-  - env: 
-    - `DATABASE_HOST`: `<ip-domain-db>`
-    - `DATABASE_PORT`: `5432` 
-    - `DATABASE_NAME`: `<db-name>`
-    - `DATABASE_PASSWORD`: `<db-password>`
-  need:
-    - Database PostgreSQL v14.2
-2. Frontend container
-  - image: `dimmaryanto93/udemy-angular-app:latest`
-  - port: `80`
-  - env:
-    - `APPLICATION_PORT`: `14.15-alpine`
-    - `NGINX_ROOT_DOCUMENT`: `/var/www/html`
-    - `BACKEND_HOST`: `<ip-backend-apps>`
-    - `BACKEND_PORT`: `<port-backend-apps>`
-    - `BACKEND_CONTEXT_PATH`: `/`
-  - need:
-    - Backend container
+3. Jalankan container menggunakan image `192.168.100.250:8086/httpd:latest` dengan port export `8081`
 
-Silahkan buat docker-compose filenya, kemudian simpan dalam folder `tasks` dengan nama `docker-compose.yaml`
+4. coba akses dari local komputer temen-temen ke container tersebut, contohnya alamat server adalah `192.168.100.111` coba akses [http://192.168.100.111:8081](http://192.168.100.111:8081)
 
-## Task 3 (Orchestration Container System)
+## Task 2 (build docker)
 
-1. Apa yang anda ketahui tentang Orchestration Container System?
-2. Kenapa Orchestration Container System seperti Kubernetes sangat popular (menurut anda)?
+Disini saya punya architecture aplikasi yang akan dideploy seperti berikut:
 
-Cara pengerjaan, silahkan update file ini tulis jawabanya di bawah ini
+![architecture-deployment](docs/images/architecture-deployment.png)
